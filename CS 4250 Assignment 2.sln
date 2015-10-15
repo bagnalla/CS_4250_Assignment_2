@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CS 4250 Assignment 2", "CS 4250 Assignment 2\CS 4250 Assignment 2.vcxproj", "{DE4A920F-B9D6-4768-961B-85AED687F384}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE4A920F-B9D6-4768-961B-85AED687F384}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DE4A920F-B9D6-4768-961B-85AED687F384}.Debug|Win32.Build.0 = Debug|Win32
+		{DE4A920F-B9D6-4768-961B-85AED687F384}.Release|Win32.ActiveCfg = Release|Win32
+		{DE4A920F-B9D6-4768-961B-85AED687F384}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
