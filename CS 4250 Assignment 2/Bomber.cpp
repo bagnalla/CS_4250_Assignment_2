@@ -44,9 +44,9 @@ namespace Bagnall
 		checkIfAboveTarget();
 	}
 
-	void Bomber::Draw()
+	void Bomber::Draw(bool select)
 	{
-		Object::Draw();
+		Object::Draw(select);
 		glDrawArrays(GL_TRIANGLE_FAN, globalVertexOffsetBody, vertexCountBody);
 		glDrawArrays(GL_TRIANGLE_FAN, globalVertexOffsetWing1, vertexCountWing);
 		glDrawArrays(GL_TRIANGLE_FAN, globalVertexOffsetWing2, vertexCountWing);

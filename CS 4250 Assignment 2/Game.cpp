@@ -21,6 +21,7 @@ namespace Bagnall
 	const int Game::TIME_PER_ROUND = 60000;
 
 	bool Game::DebugMode;
+	bool Game::PixelBufferSelectMode;
 	float Game::GameSpeed = 1.0;
 	std::string Game::StatusMessage = "Bomber";
 	int Game::Time;

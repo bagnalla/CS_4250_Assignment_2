@@ -125,6 +125,21 @@ namespace Bagnall
 		**********************************************************************/
 		static mat4 Identity();
 
+		/**********************************************************************
+		Function:		TimeToString
+		Purpose:		Converts a time value in milliseconds to a formatted
+						string.
+		Parameters:		int time - time value in milliseconds
+		**********************************************************************/
+		static std::string TimeToString(int time);
+
+		/**********************************************************************
+		Function:		WrapAngle
+		Purpose:		Wrap an angle to the range [0, 2*PI)
+		Parameters:		float theta - angle in radians
+		**********************************************************************/
+		static float WrapAngle(float theta);
+
 		template<class T>
 		static std::string ToString(T value)
 		{
@@ -141,17 +156,10 @@ namespace Bagnall
 			return sstream.str();
 		}
 
-		/**********************************************************************
-		Function:		TimeToString
-		Purpose:		Converts a time value in milliseconds to a formatted
-						string.
-		Parameters:		int time - time value in milliseconds
-		**********************************************************************/
-		static std::string TimeToString(int time);
-
-		static float WrapAngle(float theta)
+		template <typename T>
+		static T Clamp(const T& n, const T& lower, const T& upper)
 		{
-			return fmod(theta, (float)(M_PI*2.0));
+			return std::max(lower, std::min(n, upper));
 		}
 	};
 }

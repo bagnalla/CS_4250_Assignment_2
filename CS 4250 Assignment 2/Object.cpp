@@ -16,11 +16,13 @@ Date:				October 16, 2015
 
 namespace Bagnall
 {
-
 	// PUBLIC
 
 	Object::Object()
 	{
+		id = idCounter++;
+		idColor = vec4(Util::Clamp(id*0.1, 0.0, 1.0), Util::Clamp((id*0.1) - 1, 0.0, 1.0), Util::Clamp((id*0.1) - 2, 0.0, 1.0), 1.0);
+
 		position = vec4();
 		color = vec4(0.0, 0.0, 0.0, 1.0);
 		theta = vec3();
@@ -30,11 +32,23 @@ namespace Bagnall
 
 	Object::~Object() {}
 
-	void Object::Draw()
+	void Object::Draw(bool select)
 	{
 		glUniformMatrix4fv(Game::TransformLoc, 1, GL_TRUE, modelView);
-		glUniform4fv(Game::ColorLoc, 1, color);
+		if (select)
+			glUniform4fv(Game::ColorLoc, 1, idColor);
+		else
+			glUniform4fv(Game::ColorLoc, 1, color);
 	};
+
+	vec4 Object::GetIdColor()
+	{
+		return idColor;
+	}
+	void Object::SetIdColor(vec4 c)
+	{
+		idColor = c;
+	}
 
 	vec4 Object::GetColor()
 	{
@@ -42,7 +56,7 @@ namespace Bagnall
 	}
 	void Object::SetColor(vec4 c)
 	{
-		this->color = c;
+		color = c;
 	}
 
 	vec4 Object::GetPosition()
@@ -184,6 +198,8 @@ namespace Bagnall
 	}
 
 	// PROTECTED
+
+	int Object::idCounter = 0;
 
 	void Object::computeModelView()
 	{

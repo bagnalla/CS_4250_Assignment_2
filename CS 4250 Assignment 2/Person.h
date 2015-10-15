@@ -79,9 +79,10 @@ namespace Bagnall
 		/**********************************************************************
 		Function:		Draw
 		Purpose:		Draw the Person object.
+		Parameters:		bool select - draw id color if true
 		Calls:			Object::Draw
 		**********************************************************************/
-		void Draw();
+		void Draw(bool select);
 
 		/**********************************************************************
 		Function:		Contains
@@ -193,6 +194,9 @@ namespace Bagnall
 			globalVertexOffsetBody, // position of body vertices in global vertex array
 			globalVertexOffsetSelectionSquare, // position of selection square vertices in global vertex array
 			globalVertexOffsetGun; // position of gun vertices in global vertex array
+
+		static Line line; // for drawing lines in debug mode
+		static Circle circle; // for drawing circles in debug mode
 
 		/**********************************************************************
 		Function:		createPrototypeVertices

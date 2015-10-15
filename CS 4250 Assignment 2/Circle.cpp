@@ -29,9 +29,9 @@ namespace Bagnall
 
 	void Circle::Update() {}
 
-	void Circle::Draw()
+	void Circle::Draw(bool select)
 	{
-		Object::Draw();
+		Object::Draw(select);
 		glDrawArrays(GL_TRIANGLE_FAN, globalVertexOffset, VERTEX_COUNT);
 	}
 

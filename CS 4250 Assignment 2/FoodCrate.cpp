@@ -64,9 +64,9 @@ namespace Bagnall
 		}
 	}
 
-	void FoodCrate::Draw()
+	void FoodCrate::Draw(bool select)
 	{
-		Object::Draw();
+		Object::Draw(select);
 		glDrawArrays(GL_TRIANGLES, globalVertexOffset, vertexCount);
 		glUniform4fv(Game::ColorLoc, 1, vec4(139.0/255.0, 136.0/255.0, 120.0/255.0, 1.0));
 		glDrawArrays(GL_LINE_STRIP, globalVertexOffset, vertexCount);

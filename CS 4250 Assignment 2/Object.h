@@ -46,8 +46,22 @@ namespace Bagnall
 		/**********************************************************************
 		Function:		Draw
 		Purpose:		Draw the Object object.
+		Parameters:		bool select - draw id color if true
 		**********************************************************************/
-		virtual void Draw();
+		virtual void Draw(bool select);
+
+		/**********************************************************************
+		Function:		GetIdColor
+		Purpose:		Getter for idColor member variable.
+		**********************************************************************/
+		vec4 GetIdColor();
+
+		/**********************************************************************
+		Function:		SetIdColor
+		Purpose:		Setter for idColor member variable.
+		Parameters:		vec4 color - new idColor value
+		**********************************************************************/
+		void SetIdColor(vec4 color);
 
 		/**********************************************************************
 		Function:		GetColor
@@ -230,6 +244,9 @@ namespace Bagnall
 		mat4 GetTransform();
 
 	protected:
+		static int idCounter;
+		int id;
+		vec4 idColor;
 		vec4 color; // color of the object
 		vec4 position; // position of the object in world space
 		vec3 theta; // rotation about the three axes

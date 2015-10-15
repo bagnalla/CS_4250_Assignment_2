@@ -63,9 +63,9 @@ namespace Bagnall
 		checkForTreeCollision();
 	}
 
-	void Person::Draw()
+	void Person::Draw(bool select)
 	{
-		Object::Draw();
+		Object::Draw(select);
 		glDrawArrays(GL_TRIANGLE_FAN, globalVertexOffsetHead, VERTEX_COUNT_HEAD);
 		glDrawArrays(GL_TRIANGLE_STRIP, globalVertexOffsetBody, VERTEX_COUNT_BODY);
 
@@ -77,16 +77,14 @@ namespace Bagnall
 
 		if (Game::DebugMode)
 		{
-			Line line;
 			line.P1 = position + vec4(0, 0, 10, 1);
 			line.P2 = currentDestination + vec4(0, 0, 10, 1);
 			line.Draw();
 
-			Circle circle;
 			circle.SetPosition(position);
 			circle.SetScale(collisionRadius);
 			circle.SetColor(vec4(0, 0, 0, 0.25));
-			circle.Draw();
+			circle.Draw(false);
 		}
 
 		if (!good)
@@ -178,6 +176,9 @@ namespace Bagnall
 		Person::globalVertexOffsetBody,
 		Person::globalVertexOffsetSelectionSquare,
 		Person::globalVertexOffsetGun;
+
+	Line Person::line;
+	Circle Person::circle;
 
 	void Person::setCollisionRadius(float cr)
 	{

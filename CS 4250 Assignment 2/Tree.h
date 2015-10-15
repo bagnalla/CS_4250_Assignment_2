@@ -56,9 +56,10 @@ namespace Bagnall
 		/**********************************************************************
 		Function:		Draw
 		Purpose:		Draw the Tree object.
+		Parameters:		bool select - draw id color if true
 		Calls:			Circle::Draw
 		**********************************************************************/
-		void Draw();
+		void Draw(bool select);
 
 		/**********************************************************************
 		Function:		RandomizePosition

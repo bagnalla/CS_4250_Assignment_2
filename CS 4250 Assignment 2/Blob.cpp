@@ -24,9 +24,9 @@ namespace Bagnall
 
 	void Blob::Update() {}
 
-	void Blob::Draw()
+	void Blob::Draw(bool select)
 	{
-		Object::Draw();
+		Object::Draw(select);
 		glDrawArrays(GL_POLYGON, globalVertexOffset, vertexCount);
 	}
 

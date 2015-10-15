@@ -34,6 +34,7 @@ void init(void)
 	srand(time(NULL));
 
 	Game::DebugMode = false;
+	Game::PixelBufferSelectMode = false;
 	Line::Init();
 	Circle::Init();
 	Bomber::Init();
@@ -127,39 +128,43 @@ void init(void)
 
 //----------------------------------------------------------------------------
 
+void drawEverything(bool select)
+{
+	if (ground != NULL)
+		ground->Draw(select);
+
+	if (bomber != NULL)
+		bomber->Draw(select);
+	
+	for (std::vector<Person*>::iterator it = Person::People.begin(); it != Person::People.end(); it++)
+		(*it)->Draw(select);
+
+	for (std::vector<FoodCrate*>::iterator it = FoodCrate::FoodCrates.begin(); it != FoodCrate::FoodCrates.end(); it++)
+		(*it)->Draw(select);
+
+	for (std::vector<Tree*>::iterator it = Tree::Trees.begin(); it != Tree::Trees.end(); it++)
+		(*it)->Draw(select);
+}
+
 // glutDisplayFunc
 extern "C" void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // clear the window
 
-	if (ground != NULL)
-		ground->Draw();
-
-	if (bomber != NULL)
-		bomber->Draw();
-	
-	for (std::vector<Person*>::iterator it = Person::People.begin(); it != Person::People.end(); it++)
-		(*it)->Draw();
-
-	for (std::vector<FoodCrate*>::iterator it = FoodCrate::FoodCrates.begin(); it != FoodCrate::FoodCrates.end(); it++)
-		(*it)->Draw();
-
-	for (std::vector<Tree*>::iterator it = Tree::Trees.begin(); it != Tree::Trees.end(); it++)
-		(*it)->Draw();
+	drawEverything(false);
 
 	glutSwapBuffers();
 	glFlush();
 }
 
 // Maintains the mapping from screen to world coordinates.
-// TAKEN FROM CODE-EGS CHELBERG CS4250 OHIO UNIVERSITY
+// TAKEN FROM CODE-EGS CHELBERG CS 4250 OHIO UNIVERSITY
 // glutReshapeFunc
 extern "C" void myReshape(int w, int h)
 {
 	glViewport(0, 0, w, h);
 	Game::WindowSize = vec2(w, h);
 	glUniform2f(Game::WindowSizeLoc, w, h);       // Pass the window size
-	// size
 	glutPostRedisplay();
 }
 
@@ -213,25 +218,49 @@ extern "C" void idle(void)
 // glutMouseFunc
 extern "C" void mouseClick(int button, int state, int x, int y)
 {
-	//mouseMotion(x, y);
 	if (state != GLUT_DOWN)
 		return;
 
 	if (button == GLUT_LEFT_BUTTON)
 	{
-		vec4 normal = vec4(x / (float)Game::WindowSize.x, y / (float)Game::WindowSize.y, 0, 1);
-
-		vec4 world = vec4(normal.x * Game::WORLD_SIZE.x, normal.y * Game::WORLD_SIZE.y, 0.0, 1.0);
-
-		//vec4 camera = Game::Projection * world;
-
-		for (std::vector<Person*>::iterator it = Person::People.begin(); it != Person::People.end(); it++)
+		if (Game::PixelBufferSelectMode)
 		{
-			//if ((*it)->Contains(vec4(world_x, world_y, 0, 1)))
-			if ((*it)->IsWithinRange(vec4(world.x, world.y, 0, 1), (*it)->GetScaleY()))
+			//glClearColor (1.0, 1.0, 1.0, 1.0);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			drawEverything(true);
+
+			glFlush();
+			glReadBuffer(GL_BACK);
+			vec4 pixelColor;
+			glReadPixels(x, Game::WindowSize.y - y, 1, 1, GL_RGBA, GL_FLOAT, &pixelColor);
+
+			for (std::vector<Person*>::iterator it = Person::People.begin(); it != Person::People.end(); it++)
 			{
-				bomber->SetTarget(*it);
-				return;
+				vec4 idColor = (*it)->GetIdColor();
+				//if (pixelColor == (*it)->GetIdColor())
+				//if (pixelColor.x == idColor.x && pixelColor.y == idColor.y && pixelColor.z == idColor.z)
+				if (Util::Distance(pixelColor, idColor) <= 0.05)
+				{
+					bomber->SetTarget(*it);
+				}
+			}
+
+			glClear(GL_COLOR_BUFFER_BIT);
+			glutPostRedisplay();
+		}
+		else
+		{
+			vec4 normal = vec4(x / (float)Game::WindowSize.x, y / (float)Game::WindowSize.y, 0, 1);
+			vec4 world = vec4(normal.x * Game::WORLD_SIZE.x, normal.y * Game::WORLD_SIZE.y, 0.0, 1.0);
+			for (std::vector<Person*>::iterator it = Person::People.begin(); it != Person::People.end(); it++)
+			{
+				//if ((*it)->Contains(vec4(world_x, world_y, 0, 1)))
+				if ((*it)->IsWithinRange(vec4(world.x, world.y, 0, 1), (*it)->GetScaleY()))
+				{
+					bomber->SetTarget(*it);
+					return;
+				}
 			}
 		}
 	}
@@ -254,6 +283,9 @@ extern "C" void keyPress(unsigned char k, int x, int y)
 		break;
 	case '/':
 		Game::DebugMode = !Game::DebugMode;
+		break;
+	case 'p':
+		Game::PixelBufferSelectMode = !Game::PixelBufferSelectMode;
 		break;
 	case 'q':
 		Game::Projection = Angel::RotateX(-0.01 * M_PI / DegreesToRadians) * Game::Projection;
@@ -412,7 +444,7 @@ void endGame()
 	{
 		FoodCrate *foodCrate = new FoodCrate(0, vec4(1.0, 1.0, 1.0, 1.0), vec3(0.1, 0.1, 0.1));
 		foodCrate->SetPosition(startPos + vec4((i % 6) * crateScale, (i / 6) * crateScale, 0.0, 1));
-		foodCrate->SetScale(crateScale*0.85);
+		foodCrate->SetScale(crateScale*0.75);
 		foodCrate->SetColor(vec4(139.0 / 255.0, 90.0 / 255.0, 0.0, 1.0));
 	}
 

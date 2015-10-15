@@ -26,6 +26,7 @@ namespace Bagnall
 		static const int TIME_PER_ROUND; // time per round in milliseconds
 
 		static bool DebugMode; // debug mode toggle
+		static bool PixelBufferSelectMode; // backbuffer select mode toggle
 		static float GameSpeed; // game speed multiplier
 		static std::string StatusMessage; // message to display in window title bar
 		static int Time; // current clock time

@@ -63,9 +63,10 @@ namespace Bagnall
 		/**********************************************************************
 		Function:		Draw
 		Purpose:		Draw the Bomber object.
+		Parameters:		bool select - draw id color if true
 		Calls:			Object::Draw, drawWayPoints
 		**********************************************************************/
-		void Draw();
+		void Draw(bool select);
 
 		/**********************************************************************
 		Function:		SetTarget

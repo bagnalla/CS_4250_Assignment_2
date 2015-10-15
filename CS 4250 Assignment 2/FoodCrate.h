@@ -77,9 +77,10 @@ namespace Bagnall
 		/**********************************************************************
 		Function:		Draw
 		Purpose:		Draw the FoodCrate object.
+		Parameters:		bool select - draw id color if true
 		Calls:			Object::Draw
 		**********************************************************************/
-		void Draw();
+		void Draw(bool select);
 
 		/**********************************************************************
 		Function:		GetFalling

@@ -172,4 +172,9 @@ namespace Bagnall
 			+ ToStringWithLeadingZeroes(minutes, 2) + ":"
 			+ ToStringWithLeadingZeroes(seconds, 2);
 	}
+
+	float Util::WrapAngle(float theta)
+	{
+		return fmod(theta, (float)(M_PI*2.0));
+	}
 }

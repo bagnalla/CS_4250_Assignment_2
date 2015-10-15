@@ -38,9 +38,9 @@ namespace Bagnall
 
 	void Tree::Update() {}
 
-	void Tree::Draw()
+	void Tree::Draw(bool select)
 	{
-		Circle::Draw();
+		Circle::Draw(select);
 	}
 
 	void Tree::RandomizePosition()

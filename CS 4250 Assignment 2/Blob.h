@@ -44,8 +44,9 @@ namespace Bagnall
 		/**********************************************************************
 		Function:		Draw
 		Purpose:		Draw the blob.
+		Parameters:		bool select - draw id color if true
 		**********************************************************************/
-		void Draw();
+		void Draw(bool select);
 
 	private:
 		int vertexCount; // number of vertices

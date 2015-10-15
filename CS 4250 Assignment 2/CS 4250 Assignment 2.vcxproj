@@ -69,12 +69,12 @@
     <ClInclude Include="Blob.h" />
     <ClInclude Include="Bomber.h" />
     <ClInclude Include="Circle.h" />
+    <ClInclude Include="CRSpline.h" />
     <ClInclude Include="FoodCrate.h" />
     <ClInclude Include="FpsTracker.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="Overhauser.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Util.h" />
@@ -83,6 +83,7 @@
     <ClCompile Include="Blob.cpp" />
     <ClCompile Include="Bomber.cpp" />
     <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="CRSpline.cpp" />
     <ClCompile Include="FoodCrate.cpp" />
     <ClCompile Include="FpsTracker.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -90,7 +91,6 @@
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Overhauser.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Util.cpp" />

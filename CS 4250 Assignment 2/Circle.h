@@ -48,8 +48,9 @@ namespace Bagnall
 		/**********************************************************************
 		Function:		Draw
 		Purpose:		Draw the Circle object.
+		Parameters:		bool select - draw id color if true
 		**********************************************************************/
-		void Draw();
+		void Draw(bool select);
 
 		/**********************************************************************
 		Function:		Contains
